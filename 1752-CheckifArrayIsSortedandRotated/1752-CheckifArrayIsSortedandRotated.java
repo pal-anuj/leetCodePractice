@@ -1,4 +1,4 @@
-// Last updated: 15/07/2025, 00:36:08
+// Last updated: 15/07/2025, 00:37:37
 class Solution {
     public boolean check(int[] arr) {
 
@@ -52,4 +52,11 @@ class Solution {
         }
         return (asc==1 );
     }
+
+    //  public boolean check(int[] nums) {
+    //     int count = 0, n = nums.length;
+    //     for (int i = 0; i < n; i++) 
+    //         if (nums[i] > nums[(i+1) % n] && ++count > 1) return false;
+    //     return count <= 1;
+    // }
 }
