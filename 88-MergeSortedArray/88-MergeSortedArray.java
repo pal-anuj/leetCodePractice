@@ -1,4 +1,4 @@
-// Last updated: 11/06/2025, 17:43:52
+// Last updated: 14/08/2025, 14:45:51
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
        int i= m-1;
@@ -11,7 +11,7 @@ class Solution {
                 nums1[k--] = nums2[j--];
             }
         }
-        System.out.print("Anuj "+ j);
+        //System.out.print("Anuj "+ j);
         while(j>=0){
             nums1[k--] = nums2[j--];
         }
