@@ -1,20 +1,30 @@
-// Last updated: 19/08/2025, 16:44:55
+// Last updated: 19/08/2025, 17:50:29
 class Solution {
-    public boolean containsNearbyDuplicate(int[] arr, int k) {
-        Map<Integer,Integer> map= new HashMap<>();
+    public boolean containsNearbyAlmostDuplicate(int[] arr, int indexDiff, int valueDiff) {
+        TreeSet<Long> window= new TreeSet<>();
 
         for(int i=0;i<arr.length;i++){
-            if(map.containsKey(arr[i])){
-                int a= i - map.get(arr[i]);
-                if(a<=k)
-                    return true;
-                map.put(arr[i], i);
-            }
-            else{
-                map.put(arr[i], i);
-            }
+            long num = arr[i];
 
+            //check floor (closest smaller or equal
+            //largest element in the TreeSet which is <=x  
+            Long floor= window.floor(num);    
+            if(floor!=null && num-floor <= valueDiff)
+                return true;
+
+            //check ceiling (closest bigger or equal
+            //smallest element in the TreeSet which is >=x
+            Long ceiling= window.ceiling(num);
+            if(ceiling!=null && ceiling-num <= valueDiff)
+                return true;
+
+            //add current number to window
+            window.add(num);
+
+            //maintain window size
+            if(i >= indexDiff)
+                window.remove((long) arr[i-indexDiff]);
         }
-        return false;
+        return false;    
     }
 }
