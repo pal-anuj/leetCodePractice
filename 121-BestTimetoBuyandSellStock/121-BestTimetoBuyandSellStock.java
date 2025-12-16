@@ -1,20 +1,14 @@
-// Last updated: 19/06/2025, 13:13:30
-class Solution {
-    public int maxProfit(int[] prices) {
-        int profit=0;
-        int minBuyPrice=prices[0];
-        for(int i =1;i<prices.length;i++)
-        {
-            if(prices[i] > minBuyPrice)
-            {    
-                //Keep update max Profit
-                profit = Math.max(profit, prices[i]-minBuyPrice);
-            }// if next price is low then will update it minBuyPrice
-            else
-                minBuyPrice=prices[i];
-        }        
-        return profit;
-
-    }
-}
-            
+// Last updated: 16/12/2025, 09:01:26
+1class Solution {
+2    public int maxProfit(int[] prices) {
+3        int profit=0;
+4        int minp=prices[0];
+5
+6        for(int i=1;i<prices.length;i++){
+7            minp= Math.min(minp, prices[i]);
+8            profit= Math.max(profit, prices[i]-minp);
+9        }  
+10        return profit;    
+11    }
+12}
+13            
