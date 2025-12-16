@@ -1,4 +1,4 @@
-// Last updated: 16/12/2025, 09:05:54
+// Last updated: 16/12/2025, 09:06:43
 class Solution {
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
