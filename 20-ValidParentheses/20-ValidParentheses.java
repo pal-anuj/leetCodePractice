@@ -1,40 +1,39 @@
-// Last updated: 11/06/2025, 17:43:58
-import java.util.Stack;
+// Last updated: 21/12/2025, 17:22:47
 class Solution {
     public boolean isValid(String s) {
-       Stack<Character> charStack = new Stack<>();
-		char[] ch = s.toCharArray();
 
-		for (int i = 0; i < s.length(); i++) {
-			char ab = ch[i];
-			if (ab == '(' || ab == '[' || ab == '{') {
-				// push element in stack
-				charStack.push(ab);
-				continue;
-			}
-			if (charStack.isEmpty())
-				return false;
+        Stack<Character> stack = new Stack();
 
-			char check;
-			switch (ab) {
-			case ')':
-				check = charStack.pop();
-				if (check == '[' || check == '{')
-					return false;
-				break;
-			case ']':
-				check = charStack.pop();
-				if (check == '(' || check == '{')
-					return false;
-				break;
-			case '}':
-				check = charStack.pop();
-				if (check == '(' || check == '[')
-					return false;
-				break;
-			}
+        // Map<Character,Character> map= new HashMap();
+        // map.put('(',')');
+        // map.put('[',']');
+        // map.put('{','}');
+        // // List<Character> startBraces = new ArrayList();
+        // // startBraces.add('(');
+        // // startBraces.add('[');
+        // // startBraces.add('{');
+        // // List<Character> endBraces = new ArrayList();
+        // //  endBraces.add(')');
+        // // endBraces.add(']');
+        // // endBraces.add('}');
+        for(char c: s.toCharArray()){
+            // if(map.containsKey(c)){
+            //     stack.push(map.get(c));
+            // } else {
+            // // System.out.println("stack"+stack);
+            // if (stack.isEmpty()) return false;
+            // if(stack.pop() != c) return false;
+            // }
+              if (c == '(') stack.push(')');
+            else if (c == '[') stack.push(']');
+            else if (c == '{') stack.push('}');
+            else {
+                if (stack.isEmpty() || stack.pop() != c) return false;
+            }
 
-		}
-		return charStack.isEmpty();
-		}
+        }
+        // System.out.println(stack);
+        return stack.isEmpty();
+        
+    }
 }
