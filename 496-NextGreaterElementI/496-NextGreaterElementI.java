@@ -1,24 +1,27 @@
-// Last updated: 07/01/2026, 23:34:54
+// Last updated: 09/01/2026, 01:03:15
 1class Solution {
 2    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-3        
-4        Map<Integer, Integer> map= new HashMap<>();
-5        for(int i=0;i<nums2.length;i++){
-6            map.put(nums2[i], i);
-7        }
-8
-9        int[] res= new int[nums1.length];
-10        for(int i=0;i<nums1.length;i++){
-11            int j= map.get(nums1[i]);
-12            int nextGreater= -1;
-13            for(;j<nums2.length;j++){
-14                if(nums1[i] < nums2[j]){
-15                    nextGreater= nums2[j];
-16                    break;
-17                }
-18            }
-19            res[i]= nextGreater;
-20        }
-21        return res;
-22    }
-23}
+3
+4        int n1= nums1.length;
+5        int n2= nums2.length;
+6        int[] res= new int[n1];  
+7        Map<Integer, Integer> nge= new HashMap<>();      
+8        Stack<Integer> st= new Stack<Integer>();
+9        
+10        st.push(nums2[n2-1]);
+11        nge.put(nums2[n2-1], -1);
+12        for(int i=n2-1; i>=0; i--){
+13            while(!st.isEmpty() && st.peek()<= nums2[i])
+14                st.pop();
+15
+16            int ng= st.isEmpty() ? -1: st.peek();
+17            nge.put(nums2[i], ng);   
+18            st.push(nums2[i]);
+19        }
+20
+21        for(int i=0;i<n1;i++){
+22            res[i]= nge.get(nums1[i]);
+23        }
+24        return res;
+25    }
+26}
