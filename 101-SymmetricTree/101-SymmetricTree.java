@@ -1,4 +1,4 @@
-// Last updated: 15/01/2026, 13:11:34
+// Last updated: 15/01/2026, 13:44:22
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -40,7 +40,7 @@
 39        }
 40        return true;
 41        
-42        //// DFS
+42        //// DFS is much better here
 43        // if (root == null)
 44        //     return false;
 45        // return isSymmetricHelp(root.left, root.right);
