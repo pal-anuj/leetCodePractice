@@ -1,4 +1,4 @@
-// Last updated: 24/01/2026, 00:04:51
+// Last updated: 24/01/2026, 00:09:21
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -16,38 +16,27 @@
 15 */
 16class Solution {
 17
-18    private Map<Integer, Integer> map = new HashMap<>();
-19    private int sum = 0;
-20
-21    public void setMapDFS(TreeNode root) {
-22        if (root == null)
-23            return;
-24
-25        setMapDFS(root.right);
-26        sum += root.val;
-27        map.put(root.val, sum);
-28        setMapDFS(root.left);
-29    }
-30
-31    public TreeNode bstToGst(TreeNode root) {
-32
-33        if (root == null)
-34            return null;
+18    private int sum = 0;
+19
+20    public TreeNode bstToGst(TreeNode root) {
+21        return reverseInorder(root);
+22    }
+23
+24    public TreeNode reverseInorder(TreeNode root) {
+25
+26        if (root == null)
+27            return null;
+28
+29        // Visit right subtree first (greater values)
+30        reverseInorder(root.right);
+31
+32        // Update sum and node value
+33        sum += root.val;
+34        root.val = sum;
 35
-36        setMapDFS(root);
-37        map.forEach((key, value) -> System.out.println("Key: " + key + ", Value: " + value));
-38        return bstToGstRec(root);
-39    }
-40
-41    public TreeNode bstToGstRec(TreeNode root) {
-42
-43        if (root == null)
-44            return null;
-45
-46        bstToGstRec(root.left);
-47        root.val = map.get(root.val);
-48        bstToGstRec(root.right);
-49
-50        return root;
-51    }
-52}
+36        // Visit left subtree
+37        reverseInorder(root.left);
+38
+39        return root;
+40    }
+41}
