@@ -1,4 +1,4 @@
-// Last updated: 23/01/2026, 22:55:38
+// Last updated: 23/01/2026, 22:56:46
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -21,10 +21,8 @@
 20
 21        if (lLCA != null && rLCA != null)
 22            return root;
-23        else if (lLCA != null)
-24            return lLCA;
-25        else
-26            return rLCA;
-27
-28    }
-29}
+23        else
+24            return lLCA != null ? lLCA : rLCA;
+25
+26    }
+27}
