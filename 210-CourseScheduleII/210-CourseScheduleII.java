@@ -1,4 +1,4 @@
-// Last updated: 29/01/2026, 08:17:28
+// Last updated: 29/01/2026, 08:17:42
 1class Solution {
 2
 3    public int[] findOrder(int numCourses, int[][] prerequisites) {
