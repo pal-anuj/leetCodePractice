@@ -1,4 +1,4 @@
-// Last updated: 30/12/2025, 08:41:11
+// Last updated: 30/01/2026, 19:54:17
 1/*
 2// Definition for a Node.
 3class Node {
@@ -6,7 +6,7 @@
 5    public List<Node> neighbors;
 6    public Node() {
 7        val = 0;
-8        neighbors = new ArrayList<Node>();
+8        y = new ArrayList<Node>();
 9    }
 10    public Node(int _val) {
 11        val = _val;
@@ -20,36 +20,24 @@
 19*/
 20
 21class Solution {
-22    public Node cloneGraph(Node node) {
-23        if(node== null) return null;
+22
+23    private static Map<Node, Node> map = new HashMap<>();
 24
-25        // Map: original node -> cloned node
-26        Map<Node, Node> map= new HashMap<>();
-27
-28        // Queue for BFS
-29        Queue<Node> q= new LinkedList<>();
-30
-31        // Clone the first node
-32        Node clone= new Node(node.val, new ArrayList<>());
-33        map.put(node, clone);
-34        q.add(node);
-35
-36        while(!q.isEmpty()){
-37
-38            Node curr= q.poll();
+25    public Node cloneGraph(Node node) {
+26        if (node == null)
+27            return null;
+28
+29        Node newNode = new Node(node.val);
+30        map.put(node, newNode);
+31
+32        for (Node nei : node.neighbors) {
+33            if (!map.containsKey(nei)) {
+34                newNode.neighbors.add(cloneGraph(nei));
+35            } else {
+36                newNode.neighbors.add(map.get(nei));
+37            }
+38        }
 39
-40            ArrayList<Node> al= new ArrayList<>();
-41            for(Node nei : curr.neighbors){
-42                // If neighbor is not cloned yet
-43                if(!map.containsKey(nei)){
-44                    map.put(nei, new Node(nei.val, new ArrayList<>()));
-45                    q.add(nei);
-46                }
-47
-48                // Add cloned neighbor to current cloned node
-49                map.get(curr).neighbors.add(map.get(nei));           
-50             }
-51        }
-52        return clone;
-53    }
-54}
+40        return newNode;
+41    }
+42}
