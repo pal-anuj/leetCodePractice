@@ -1,4 +1,4 @@
-// Last updated: 30/01/2026, 19:54:17
+// Last updated: 30/01/2026, 20:00:11
 1/*
 2// Definition for a Node.
 3class Node {
@@ -21,23 +21,25 @@
 20
 21class Solution {
 22
-23    private static Map<Node, Node> map = new HashMap<>();
-24
-25    public Node cloneGraph(Node node) {
-26        if (node == null)
-27            return null;
-28
-29        Node newNode = new Node(node.val);
-30        map.put(node, newNode);
-31
-32        for (Node nei : node.neighbors) {
-33            if (!map.containsKey(nei)) {
-34                newNode.neighbors.add(cloneGraph(nei));
-35            } else {
-36                newNode.neighbors.add(map.get(nei));
-37            }
-38        }
-39
-40        return newNode;
-41    }
-42}
+23    public Node cloneGraph(Node node) {
+24        if (node == null)
+25            return null;
+26        Map<Node, Node> map = new HashMap<>();
+27        return cloneGraphUtil(node, map);
+28    }
+29
+30    private Node cloneGraphUtil(Node node, Map<Node, Node> map) {
+31        Node newNode = new Node(node.val);
+32        map.put(node, newNode);
+33
+34        for (Node nei : node.neighbors) {
+35            if (!map.containsKey(nei)) {
+36                newNode.neighbors.add(cloneGraphUtil(nei, map));
+37            } else {
+38                newNode.neighbors.add(map.get(nei));
+39            }
+40        }
+41
+42        return newNode;
+43    }
+44}
