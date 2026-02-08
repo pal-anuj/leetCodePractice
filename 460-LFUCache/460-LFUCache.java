@@ -1,4 +1,4 @@
-// Last updated: 08/02/2026, 09:08:49
+// Last updated: 08/02/2026, 09:12:01
 1class LFUCache {
 2
 3    final int capacity; // total capacity of LFU cache
@@ -56,128 +56,127 @@
 55        // increment node frequency
 56        node.frequency++;
 57
-58        // 🔥 IMPORTANT FIX: use node.frequency, NOT node.key
-59        DoubleLinkedList newList = frequencyMap.getOrDefault(node.frequency, new DoubleLinkedList());
-60
-61        // add node to new frequency list (most recently used)
-62        newList.addNode(node);
-63        frequencyMap.put(node.frequency, newList);
-64    }
-65
-66    /**
-67     * Insert or update a key-value pair.
-68     */
-69    public void put(int key, int val) {
-70
-71        // edge case: zero capacity cache
-72        if (capacity == 0)
-73            return;
-74
-75        // if key already exists → update value and frequency
-76        if (cache.containsKey(key)) {
-77            DLLNode node = cache.get(key);
-78            node.val = val;
-79            updateNode(node);
-80            return;
-81        }
-82
-83        // inserting a new key
-84        currSize++;
-85
-86        // if capacity exceeded → evict LFU key
-87        if (currSize > capacity) {
-88
-89            // get the least frequency list
-90            DoubleLinkedList minFreqList = frequencyMap.get(minFrequency);
-91
-92            // remove LRU node from that frequency list
-93            DLLNode lruNode = minFreqList.tail.prev;
-94            cache.remove(lruNode.key);
-95            minFreqList.removeNode(lruNode);
-96
-97            currSize--;
-98        }
-99
-100        // new node always starts with frequency 1
-101        minFrequency = 1;
-102        DLLNode newNode = new DLLNode(key, val);
-103
-104        // add new node to frequency 1 list
-105        DoubleLinkedList currList = frequencyMap.getOrDefault(minFrequency, new DoubleLinkedList());
-106
-107        currList.addNode(newNode);
-108        frequencyMap.put(minFrequency, currList);
-109        cache.put(key, newNode);
-110    }
-111}
-112
-113/**
-114 * Doubly Linked List Node
-115 */
-116class DLLNode {
-117    int key;
-118    int val;
-119    int frequency;
-120    DLLNode next;
-121    DLLNode prev;
-122
-123    protected DLLNode(int key, int val) {
-124        this.key = key;
-125        this.val = val;
-126        this.frequency = 1; // new node starts with freq = 1
-127    }
-128}
-129
-130/**
-131 * Doubly Linked List to store nodes of same frequency
-132 * Maintains LRU order within same frequency
-133 */
-134class DoubleLinkedList {
-135
-136    int listSize;
-137    DLLNode head;
-138    DLLNode tail;
-139
-140    protected DoubleLinkedList() {
-141        head = new DLLNode(0, 0);
-142        tail = new DLLNode(0, 0);
-143        head.next = tail;
-144        tail.prev = head;
-145        listSize = 0;
-146    }
-147
-148    /**
-149     * Add node right after head (most recently used)
-150     */
-151    void addNode(DLLNode node) {
-152        DLLNode nextNode = head.next;
-153
-154        node.next = nextNode;
-155        node.prev = head;
-156
-157        head.next = node;
-158        nextNode.prev = node;
-159
-160        listSize++;
-161    }
-162
-163    /**
-164     * Remove a node from the list
-165     */
-166    void removeNode(DLLNode node) {
-167        DLLNode prevNode = node.prev;
-168        DLLNode nextNode = node.next;
-169
-170        prevNode.next = nextNode;
-171        nextNode.prev = prevNode;
-172
-173        listSize--;
-174    }
-175}
-176
-177/**
-178 * Your LFUCache object will be instantiated and called as such:
-179 * LFUCache obj = new LFUCache(capacity);
-180 * int param_1 = obj.get(key);
-181 * obj.put(key,value);
-182 */
+58        DoubleLinkedList newList = frequencyMap.getOrDefault(node.frequency, new DoubleLinkedList());
+59
+60        // add node to new frequency list (most recently used)
+61        newList.addNode(node);
+62        frequencyMap.put(node.frequency, newList);
+63    }
+64
+65    /**
+66     * Insert or update a key-value pair.
+67     */
+68    public void put(int key, int val) {
+69
+70        // edge case: zero capacity cache
+71        if (capacity == 0)
+72            return;
+73
+74        // if key already exists → update value and frequency
+75        if (cache.containsKey(key)) {
+76            DLLNode node = cache.get(key);
+77            node.val = val;
+78            updateNode(node);
+79            return;
+80        }
+81
+82        // inserting a new key
+83        currSize++;
+84
+85        // if capacity exceeded → evict LFU key
+86        if (currSize > capacity) {
+87
+88            // get the least frequency list
+89            DoubleLinkedList minFreqList = frequencyMap.get(minFrequency);
+90
+91            // remove LRU node from that frequency list
+92            DLLNode lruNode = minFreqList.tail.prev;
+93            cache.remove(lruNode.key);
+94            minFreqList.removeNode(lruNode);
+95
+96            currSize--;
+97        }
+98
+99        // new node always starts with frequency 1
+100        minFrequency = 1;
+101        DLLNode newNode = new DLLNode(key, val);
+102
+103        // add new node to frequency 1 list
+104        DoubleLinkedList currList = frequencyMap.getOrDefault(minFrequency, new DoubleLinkedList());
+105
+106        currList.addNode(newNode);
+107        frequencyMap.put(minFrequency, currList);
+108        cache.put(key, newNode);
+109    }
+110}
+111
+112/**
+113 * Doubly Linked List Node
+114 */
+115class DLLNode {
+116    int key;
+117    int val;
+118    int frequency;
+119    DLLNode next;
+120    DLLNode prev;
+121
+122    protected DLLNode(int key, int val) {
+123        this.key = key;
+124        this.val = val;
+125        this.frequency = 1; // new node starts with freq = 1
+126    }
+127}
+128
+129/**
+130 * Doubly Linked List to store nodes of same frequency
+131 * Maintains LRU order within same frequency
+132 */
+133class DoubleLinkedList {
+134
+135    int listSize;
+136    DLLNode head;
+137    DLLNode tail;
+138
+139    protected DoubleLinkedList() {
+140        head = new DLLNode(0, 0);
+141        tail = new DLLNode(0, 0);
+142        head.next = tail;
+143        tail.prev = head;
+144        listSize = 0;
+145    }
+146
+147    /**
+148     * Add node right after head (most recently used)
+149     */
+150    void addNode(DLLNode node) {
+151        DLLNode nextNode = head.next;
+152
+153        node.next = nextNode;
+154        node.prev = head;
+155
+156        head.next = node;
+157        nextNode.prev = node;
+158
+159        listSize++;
+160    }
+161
+162    /**
+163     * Remove a node from the list
+164     */
+165    void removeNode(DLLNode node) {
+166        DLLNode prevNode = node.prev;
+167        DLLNode nextNode = node.next;
+168
+169        prevNode.next = nextNode;
+170        nextNode.prev = prevNode;
+171
+172        listSize--;
+173    }
+174}
+175
+176/**
+177 * Your LFUCache object will be instantiated and called as such:
+178 * LFUCache obj = new LFUCache(capacity);
+179 * int param_1 = obj.get(key);
+180 * obj.put(key,value);
+181 */
