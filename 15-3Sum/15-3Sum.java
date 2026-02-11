@@ -1,33 +1,38 @@
-// Last updated: 11/02/2026, 06:00:48
-1class Solution {
-2    public List<List<Integer>> threeSum(int[] nums) {
-3        int n = nums.length;
-4        List<List<Integer>> res = new ArrayList<>();
-5        Set<List<Integer>> set = new HashSet<>();
-6
-7        Arrays.sort(nums);
-8        for (int i = 0; i < n; i++) {
-9            int diff = 0 - nums[i];
-10            int l = i + 1;
-11            int r = n - 1;
-12            while (l < r) {
-13                if (nums[l] + nums[r] > diff) {
-14                    r--;
-15                } else if (nums[l] + nums[r] < diff) {
-16                    l++;
-17                } else {
-18                    ArrayList<Integer> ls = 
-19                                new ArrayList<>(Arrays.asList(nums[i], nums[l], nums[r]));
-20
-21                    Collections.sort(ls);
-22                    if (!set.contains(ls)) {
-23                        set.add(ls);
-24                        res.add(ls);
-25                    }
-26                    l++;
-27                }
-28            }
-29        }
-30        return res;
-31    }
-32}
+// Last updated: 11/02/2026, 06:08:32
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++){
+            System.out.print(nums[i]);
+        }
+
+        List<List<Integer>> rs = new ArrayList<>();
+        for (int i = 0; i < n; i++){
+            if (i != 0 && nums[i] == nums[i - 1])continue;
+            int left = i + 1;
+            int right = n - 1;
+            while(left < right){
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum < 0){
+                    left++;
+                }
+                else if (sum > 0){
+                    right--;
+                }
+                else{
+                    List<Integer> temp = new ArrayList<>();
+                    temp.add(nums[i]);
+                    temp.add(nums[left]);
+                    temp.add(nums[right]);
+                    rs.add(temp);
+                    left++;
+                    right--;
+                    while(left < right && nums[left] == nums[left - 1])left++;
+                    while(left < right && nums[right] == nums[right + 1])right--;
+                }
+            }
+        }
+        return rs;
+    }
+}
