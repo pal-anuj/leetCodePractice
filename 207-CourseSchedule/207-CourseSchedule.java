@@ -1,4 +1,4 @@
-// Last updated: 28/01/2026, 23:37:51
+// Last updated: 05/03/2026, 09:20:55
 1class Solution {
 2    public boolean canFinish(int numCourses, int[][] prerequisites) {
 3
