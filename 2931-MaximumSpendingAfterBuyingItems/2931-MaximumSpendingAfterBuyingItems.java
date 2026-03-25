@@ -1,29 +1,31 @@
-// Last updated: 23/02/2026, 06:02:12
-1class Solution {
-2    public int[][] merge(int[][] intervals) {
-3        if (intervals.length <= 1)
-4            return intervals;
-5
-6        // ascending sort - strating point 
-7        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-8
-9        List<int[]> res = new ArrayList<>();
-10
-11        int[] newInterval = intervals[0];
-12        res.add(newInterval);
+// Last updated: 25/03/2026, 23:58:47
+1/**
+2 * Definition for singly-linked list.
+3 * public class ListNode {
+4 *     int val;
+5 *     ListNode next;
+6 *     ListNode() {}
+7 *     ListNode(int val) { this.val = val; }
+8 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+9 * }
+10 */
+11class Solution {
+12    public ListNode reverseList(ListNode head) {
 13
-14        for (int[] interval : intervals) {
-15            if (interval[0] <= newInterval[1]) {
-16                // overlapping intervals
-17                // updating the end if needed
-18                newInterval[1] = Math.max(newInterval[1], interval[1]);
-19            } else {
-20                // disjoint intervals
-21                // add the new interval to the list 
-22                newInterval = interval;
-23                res.add(newInterval);
-24            }
-25        }
-26        return res.toArray(new int[res.size()][]);
-27    }
-28}
+14        List<Integer> ls = new ArrayList<>();
+15        while (head != null) {
+16            ls.add(head.val);
+17            head = head.next;
+18        }
+19        Collections.reverse(ls);
+20        ListNode newHead = new ListNode();
+21        ListNode temp = newHead;
+22        for (int num : ls) {
+23            ListNode temp1 = new ListNode(num);
+24            temp.next = temp1;
+25            temp = temp.next;
+26        }
+27        return newHead.next;
+28    }
+29
+30}
