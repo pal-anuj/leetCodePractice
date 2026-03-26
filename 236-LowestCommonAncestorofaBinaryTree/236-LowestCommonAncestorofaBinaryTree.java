@@ -1,28 +1,32 @@
-// Last updated: 27/03/2026, 00:02:45
-1/**
-2 * Definition for a binary tree node.
-3 * public class TreeNode {
-4 *     int val;
-5 *     TreeNode left;
-6 *     TreeNode right;
-7 *     TreeNode(int x) { val = x; }
-8 * }
-9 */
-10class Solution {
-11    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-12        if (root == null)
-13            return null;
+// Last updated: 27/03/2026, 00:24:40
+1class Solution {
+2    public int findDuplicate(int[] arr) {
+3        /* 
+4        //using extra space
+5        HashSet<Integer> hs= new HashSet<>();
+6        for(int i=0;i<arr.length;i++){
+7            if(hs.contains(arr[i]))
+8                return arr[i];
+9            else
+10                hs.add(arr[i]);
+11        }
+12        return 0;
+13        */
 14
-15        if (root == p || root == q)
-16            return root;
-17
-18        TreeNode lLCA = lowestCommonAncestor(root.left, p, q);
-19        TreeNode rLCA = lowestCommonAncestor(root.right, p, q);
-20
-21        if (lLCA != null && rLCA != null)
-22            return root;
-23        else
-24            return lLCA != null ? lLCA : rLCA;
-25
-26    }
-27}
+15        // fast slow pointer similar to cycle linkedlist 0(n) with space 0(1)
+16        int slow=arr[0];
+17        int fast=arr[0];
+18
+19        do{
+20            slow= arr[slow];
+21            fast= arr[arr[fast]];
+22        } while(slow != fast);
+23
+24        fast= arr[0];
+25        while(slow != fast){
+26            slow= arr[slow];
+27            fast= arr[fast];
+28        }
+29        return slow;
+30    }
+31}
