@@ -1,31 +1,21 @@
-// Last updated: 25/03/2026, 23:58:47
-1/**
-2 * Definition for singly-linked list.
-3 * public class ListNode {
-4 *     int val;
-5 *     ListNode next;
-6 *     ListNode() {}
-7 *     ListNode(int val) { this.val = val; }
-8 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-9 * }
-10 */
-11class Solution {
-12    public ListNode reverseList(ListNode head) {
+// Last updated: 08/04/2026, 22:59:54
+1class Solution {
+2    public int trap(int[] height) {
+3        int n= height.length;    
+4        int[] leftMax= new int[n];
+5        leftMax[0]= height[0];
+6        for(int i=1;i<n;i++)
+7            leftMax[i]= Math.max(height[i], leftMax[i-1]);
+8
+9        int[] rightMax= new int[n];
+10        rightMax[n-1]= height[n-1];
+11        for(int i=n-2; i>=0;i--)
+12            rightMax[i]= Math.max(height[i], rightMax[i+1]);
 13
-14        List<Integer> ls = new ArrayList<>();
-15        while (head != null) {
-16            ls.add(head.val);
-17            head = head.next;
-18        }
-19        Collections.reverse(ls);
-20        ListNode newHead = new ListNode();
-21        ListNode temp = newHead;
-22        for (int num : ls) {
-23            ListNode temp1 = new ListNode(num);
-24            temp.next = temp1;
-25            temp = temp.next;
-26        }
-27        return newHead.next;
-28    }
-29
-30}
+14        int count=0;
+15        for(int i=1; i<n-1;i++)
+16            count += Math.min(rightMax[i], leftMax[i]) - height[i];
+17
+18        return count;                
+19    }
+20}
