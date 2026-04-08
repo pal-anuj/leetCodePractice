@@ -1,24 +1,37 @@
-// Last updated: 22/12/2025, 00:52:03
+// Last updated: 08/04/2026, 10:00:45
 1class Solution {
 2    public int maxArea(int[] height) {
-3        int n= height.length;
-4        int lp=0; //left pointer
-5        int rp=n-1; //right pointer
-6        int maxw=0; // max water container
-7
-8        while(lp<rp){
-9
-10            int ht= Math.min(height[lp], height[rp]); //min height
-11            int w= rp-lp; // width
-12            int currw= ht*w;    // current water container
-13            maxw= Math.max(maxw, currw);
+3        int n = height.length;
+4        int res = 0;
+5
+6        int l = 0;
+7        int r = n - 1;
+8
+9        // Efficinet apprach using 2 pointer
+10        while (l < r) {
+11            int minh = Math.min(height[l], height[r]);
+12            int cur = (r - l) * minh;
+13            res = Math.max(res, cur);
 14
-15            if(height[lp] < height[rp]) 
-16                lp++;
-17            else 
-18                rp--;
-19        }
-20        
-21        return maxw;
-22    }
-23}
+15            if (height[l] < height[r])
+16                l++;
+17            else if (height[l] > height[r])
+18                r--;
+19            else {
+20                l++;
+21                r--;
+22            }
+23        }
+24
+25        // //    naive approach
+26        //     int cur = 0;
+27        // for (int i = 0; i < n - 1; i++) {
+28        //     for (int j = i + 1; j < n; j++) {
+29        //         int minh = Math.min(height[i], height[j]);
+30        //         int cur = (j - i) * minh;
+31        //         res = Math.max(res, cur);
+32        //     }
+33        // }
+34        return res;
+35    }
+36}
