@@ -1,21 +1,17 @@
-// Last updated: 08/04/2026, 22:59:54
+// Last updated: 11/04/2026, 08:01:15
 1class Solution {
-2    public int trap(int[] height) {
-3        int n= height.length;    
-4        int[] leftMax= new int[n];
-5        leftMax[0]= height[0];
-6        for(int i=1;i<n;i++)
-7            leftMax[i]= Math.max(height[i], leftMax[i-1]);
-8
-9        int[] rightMax= new int[n];
-10        rightMax[n-1]= height[n-1];
-11        for(int i=n-2; i>=0;i--)
-12            rightMax[i]= Math.max(height[i], rightMax[i+1]);
-13
-14        int count=0;
-15        for(int i=1; i<n-1;i++)
-16            count += Math.min(rightMax[i], leftMax[i]) - height[i];
-17
-18        return count;                
-19    }
-20}
+2    public int[] twoSum(int[] nums, int target) {
+3        int n = nums.length;
+4        int[] res = new int[2];
+5        for (int i = 0; i < n - 1; i++) {
+6            for (int j = i + 1; j < n; j++) {
+7                if (nums[i] + nums[j] == target) {
+8                    res[0] = i;
+9                    res[1] = j;
+10                    return res;
+11                }
+12            }
+13        }
+14        return res;
+15    }
+16}
