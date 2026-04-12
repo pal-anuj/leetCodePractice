@@ -1,4 +1,4 @@
-// Last updated: 12/04/2026, 05:19:34
+// Last updated: 12/04/2026, 18:19:39
 1class Solution {
 2    public int maxSubArray(int[] nums) {
 3        int n = nums.length;
@@ -10,5 +10,8 @@
 9            maxSum = Math.max(maxSum, curr);
 10        }
 11        return maxSum;
-12    }
-13}
+12
+13
+14        
+15    }
+16}
