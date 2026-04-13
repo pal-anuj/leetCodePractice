@@ -1,4 +1,4 @@
-// Last updated: 21/03/2026, 22:23:31
+// Last updated: 13/04/2026, 22:04:55
 1class Solution {
 2    public int lengthOfLongestSubstring(String s) {
 3        int maxL = 0;
@@ -12,7 +12,7 @@
 11            if (lastSeenIndex.containsKey(curChar)) {
 12                left = Math.max(left, lastSeenIndex.get(curChar) + 1);
 13            }
-14            int curWin= i - left + 1;
+14            int curWin = i - left + 1;
 15            maxL = Math.max(maxL, curWin);
 16            lastSeenIndex.put(curChar, i);
 17        }
