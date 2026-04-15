@@ -1,55 +1,37 @@
-// Last updated: 14/04/2026, 23:14:55
-1class Solution {
-2    public int firstUniqChar(String s) {
-3        int n = s.length();
-4
-5        // optimized Approach
-6        // Frequency array for 26 lowercase letters
-7        int[] charfreq = new int[26];
-8
-9        // Count frequency of each character 
-10        for (int i = 0; i < n; i++) {
-11            char currentChar = s.charAt(i);
-12            charfreq[currentChar - 'a']++;
-13        }
-14
-15        // Find first character with frequency 1
-16        for (int i = 0; i < n; i++) {
-17            char currentChar = s.charAt(i);
-18            if (charfreq[currentChar - 'a'] == 1)
-19                return i;
-20        }
-21        return -1;
-22
-23        /*
-24        // Efficient Approach
-25        Map<Character, Integer> map = new HashMap<>();
-26        
-27        for (int i = 0; i < n; i++) {
-28            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
-29        }
-30        
-31        for (int i = 0; i < n; i++) {
-32            if (map.get(s.charAt(i)) == 1)
-33                return i;
-34        }
-35        return -1;
-36        */
-37
-38        /* // Brute force approach
-39        for (int i = 0; i < n; i++) {
-40            boolean repeated = false;
-41            for (int j = 0; j < n; j++) {
-42                if (s.charAt(i) == s.charAt(j) && i != j) {
-43                    repeated = true;
-44                    break;
-45                }
-46            }
-47            if (repeated == false)
-48                return i;
-49        }
-50        return -1;
-51        */
-52
-53    }
-54}
+// Last updated: 15/04/2026, 09:32:13
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int num : nums) {
+            count.put(num, count.getOrDefault(num, 0) + 1);
+        }
+ 
+        List<Integer>[] buckets = new ArrayList[nums.length + 1];
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = new ArrayList<>();
+        }
+ 
+        for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
+            int num = entry.getKey();
+            int freq = entry.getValue();
+            buckets[freq].add(num);
+        }
+ 
+        List<Integer> result = new ArrayList<>();
+        for (int i = buckets.length - 1; i >= 0; --i) {
+            if (!buckets[i].isEmpty()) {
+                result.addAll(buckets[i]);
+                if (result.size() >= k) {
+                    break;
+                }
+            }
+        }
+ 
+        // Convert result to int[]
+        int[] resultArray = new int[k];
+        for (int i = 0; i < k; i++) {
+            resultArray[i] = result.get(i);
+        }
+        return resultArray;
+    }
+}
