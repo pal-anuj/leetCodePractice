@@ -1,33 +1,21 @@
-// Last updated: 13/04/2026, 22:04:55
+// Last updated: 16/04/2026, 05:32:30
 1class Solution {
-2    public int lengthOfLongestSubstring(String s) {
-3        int maxL = 0;
-4
-5        // Efficient Approach
-6        int left = 0;
-7        HashMap<Character, Integer> lastSeenIndex = new HashMap<>();
-8
-9        for (int i = 0; i < s.length(); i++) {
-10            char curChar = s.charAt(i);
-11            if (lastSeenIndex.containsKey(curChar)) {
-12                left = Math.max(left, lastSeenIndex.get(curChar) + 1);
-13            }
-14            int curWin = i - left + 1;
-15            maxL = Math.max(maxL, curWin);
-16            lastSeenIndex.put(curChar, i);
+2
+3    public int longestConsecutive(int[] nums) {
+4        Set<Integer> freq = new HashSet<>();
+5        for (int num : nums)
+6            freq.add(num);
+7
+8        int longest = 0;
+9        for (int num : freq) {
+10            int count = 0;
+11            if (!freq.contains(num - 1)) {
+12                while (freq.contains(num++)) {
+13                    count++;
+14                    longest = Math.max(longest, count);
+15                }
+16            }
 17        }
-18
-19        // // Brute Force O(n2)
-20        // for (int i = 0; i < s.length(); i++) {
-21        //     HashSet<Character> hs = new HashSet<>();
-22        //     for (int j = i; j < s.length(); j++) {
-23        //         if (hs.contains(s.charAt(j)))
-24        //             break;
-25
-26        //         maxL = Math.max(maxL, j - i + 1);
-27        //         hs.add(s.charAt(j));
-28        //     }
-29        // }
-30        return maxL;
-31    }
-32}
+18        return longest;
+19    }
+20}
