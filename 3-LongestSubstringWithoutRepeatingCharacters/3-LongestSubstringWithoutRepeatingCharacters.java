@@ -1,37 +1,43 @@
-// Last updated: 16/04/2026, 06:18:46
+// Last updated: 18/04/2026, 21:11:40
 1class Solution {
-2    public int lengthOfLongestSubstring(String s) {
-3        int maxL = 0;
-4
-5        // Efficient Approach
-6        int left = 0;
-7        HashMap<Character, Integer> lastSeenIndex = new HashMap<>();
-8
-9        for (int right = 0; right < s.length(); right++) {
-10            char c = s.charAt(right);
-11            if (lastSeenIndex.containsKey(c)) {
-12                left = Math.max(left, lastSeenIndex.get(c)+1);
-13            }
-14
-15            lastSeenIndex.put(c, right);
-16            maxL = Math.max(maxL, right - left + 1);
-17        }
-18
-19        // // brute force
-20        // for(int i=0;i<s.length();i++){
-21        //     int count=1;
-22        //     Set<Character> set= new HashSet<>();
-23        //     set.add(s.charAt(i));
-24        //     for(int j=i+1;j<s.length();j++){
-25        //         if(set.contains(s.charAt(j)))
-26        //             break;
-27        //         else
-28        //             count++;
-29        //         set.add(s.charAt(j)); 
-30        //     }
-31        //     maxL= Math.max(maxL, count);
-32        // }
-33
-34        return maxL;
-35    }
-36}
+2    public int totalFruit(int[] fruits) {
+3        int n = fruits.length;
+4        int max = 0;
+5        // efficient approach
+6        HashMap<Integer, Integer> map = new HashMap<>();
+7        int l = 0;
+8        for (int r = 0; r < fruits.length; r++) {
+9            map.put(fruits[r], map.getOrDefault(fruits[r], 0) + 1);
+10
+11            if (map.size() > 2) {
+12                while (map.size() > 2) {
+13                    map.put(fruits[l], map.get(fruits[l]) - 1);
+14                    if (map.get(fruits[l]) == 0)
+15                        map.remove(fruits[l]);
+16                    l++;
+17                }
+18            } else {
+19                int count = 0;
+20                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+21                    count += entry.getValue();
+22                }
+23                max = Math.max(max, count);
+24            }
+25        }
+26
+27        // // brute force time: O(n2)
+28        // for (int i = 0; i < n; i++) {
+29        //     Set<Integer> set = new HashSet<>();
+30        //     int count = 0;
+31        //     for (int j = i; j < n; j++) {
+32        //         set.add(fruits[j]);
+33        //         if (set.size() > 2)
+34        //             break;
+35        //         count++;
+36        //     }
+37        //     max = Math.max(max, count);
+38        // }
+39
+40        return max;
+41    }
+42}
