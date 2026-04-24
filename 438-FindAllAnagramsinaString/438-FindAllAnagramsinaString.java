@@ -1,64 +1,39 @@
-// Last updated: 24/04/2026, 07:55:19
+// Last updated: 24/04/2026, 09:11:05
 1class Solution {
-2    public String minWindow(String s, String t) {
-3        int n = s.length();
-4        int m = t.length();
-5
-6        if (m > n)
-7            return "";
-8
-9        int[] freq = new int[256];
-10        for (char c : t.toCharArray()) {
-11            freq[c]++;
-12        }
-13
-14        // Efficeint Approach Time Comeplexity: O(2n+m), Space Complexity: O(256)
-15        int l = 0;
-16        int r = 0;
-17        int count = 0;
-18        int minLen = Integer.MAX_VALUE;
-19        int startIdx = -1;
-20        while (r < n) {
-21            if (freq[s.charAt(r)] > 0) {
-22                count++;
-23            }
-24            freq[s.charAt(r)]--;
-25
-26            while (count == m) {
-27                if (r - l + 1 < minLen) {
-28                    minLen = r - l + 1;
-29                    startIdx = l;
-30                }
-31
-32                freq[s.charAt(l)]++;
-33                if (freq[s.charAt(l)] > 0)
-34                    count = count - 1;
-35                l++;
-36            }
-37            r = r + 1;
-38        }
-39        return startIdx == -1 ? "" : s.substring(startIdx, startIdx + minLen);
-40
-41        // // Brute Force O(n2)
-42        // int startIdx = 0;
-43        // int endIdx = n;
-44        // boolean stringFound = false;
-45        // for (int i = 0; i <= n - m; i++) {
-46        //     int count = m;
-47        //     int[] temp = freq.clone();
-48        //     for (int j = i; j < n; j++) {
-49        //         if (temp[s.charAt(j)]-- > 0)
-50        //             count--;
-51        //         if (count == 0) {
-52        //             if (endIdx - startIdx > j - i) {
-53        //                 startIdx = i;
-54        //                 endIdx = j + 1;
-55        //             }
-56        //             stringFound = true;
-57        //             break;
-58        //         }
-59        //     }
-60        // }
-61        // return stringFound ? s.substring(startIdx, endIdx) : "";
-62    }
-63}
+2    public int[] maxSlidingWindow(int[] nums, int k) {
+3        int n = nums.length;
+4        int[] res = new int[n - k + 1];
+5        int l = 0;
+6        int r = 0;
+7
+8        // [1,3,-1,-3,5,3,6,7]
+9        Deque<Integer> dq = new ArrayDeque<>();
+10        int idx = 0;
+11        for (int i = 0; i < n; i++) {
+12
+13            // remove ele from dq which are not part of curr window
+14            while (!dq.isEmpty() && dq.peekFirst() < i - k + 1)
+15                dq.pollFirst();
+16
+17            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {
+18                dq.removeLast();
+19            }
+20
+21            dq.offer(i);
+22            if (i >= k - 1) {
+23                res[idx++] = nums[dq.peekFirst()];
+24            }
+25        }
+26
+27        // // Brute force Time Complexity: O(n2)
+28        // for(int i=0;i<=n-k;i++){
+29        //     int maxEle= Integer.MIN_VALUE;
+30        //     for(int j=i;j< n && j< i+k;j++){
+31        //         if(maxEle < nums[j])
+32        //             maxEle= nums[j];
+33        //     }
+34        //     res[i]= maxEle;
+35        // }
+36        return res;
+37    }
+38}
