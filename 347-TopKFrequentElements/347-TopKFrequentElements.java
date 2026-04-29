@@ -1,40 +1,20 @@
-// Last updated: 29/04/2026, 23:10:32
-1import java.util.Stack;
-2class Solution {
-3    public boolean isValid(String s) {
-4       Stack<Character> charStack = new Stack<>();
-5		char[] ch = s.toCharArray();
-6
-7		for (int i = 0; i < s.length(); i++) {
-8			char ab = ch[i];
-9			if (ab == '(' || ab == '[' || ab == '{') {
-10				// push element in stack
-11				charStack.push(ab);
-12				continue;
-13			}
-14			if (charStack.isEmpty())
-15				return false;
-16
-17			char check;
-18			switch (ab) {
-19			case ')':
-20				check = charStack.pop();
-21				if (check == '[' || check == '{')
-22					return false;
-23				break;
-24			case ']':
-25				check = charStack.pop();
-26				if (check == '(' || check == '{')
-27					return false;
-28				break;
-29			case '}':
-30				check = charStack.pop();
-31				if (check == '(' || check == '[')
-32					return false;
-33				break;
-34			}
-35
-36		}
-37		return charStack.isEmpty();
-38		}
-39}
+// Last updated: 29/04/2026, 23:13:29
+1class Solution {
+2    public boolean isValid(String s) {
+3        Stack<Character> st = new Stack<>();
+4        for (int i = 0; i < s.length(); i++) {
+5            char ch = s.charAt(i);
+6            if (ch == '(')
+7                st.push(')');
+8            else if (ch == '{')
+9                st.push('}');
+10            else if (ch == '[')
+11                st.push(']');
+12            else {
+13                if (st.isEmpty() || st.pop() != ch)
+14                    return false;
+15            }
+16        }
+17        return st.isEmpty();
+18    }
+19}
