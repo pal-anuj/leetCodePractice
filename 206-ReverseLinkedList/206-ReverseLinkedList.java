@@ -1,4 +1,4 @@
-// Last updated: 04/05/2026, 06:01:30
+// Last updated: 05/05/2026, 08:13:17
 1/**
 2 * Definition for singly-linked list.
 3 * public class ListNode {
@@ -12,28 +12,28 @@
 11class Solution {
 12    public ListNode reverseList(ListNode head) {
 13        // Effcient approach
-14        ListNode prev= null;
-15        ListNode cur= head;
-16        while(cur!=null){
-17            ListNode next= cur.next;
+14        ListNode prev = null;
+15        ListNode cur = head;
+16        while (cur != null) {
+17            ListNode next = cur.next;
 18            cur.next = prev;
-19            prev=cur;
-20            cur= next;
+19            prev = cur;
+20            cur = next;
 21        }
-22        return prev;
-23
-24        // // base case Recursive method Time : O(n), space: O(n) for stack call
-25        // if(head == null || head.next == null)
-26        //     return head;    
-27
-28        // ListNode newHead= reverseList(head.next);
-29        
-30        // head.next.next = head;
-31        // head.next = null;
-32
-33        // return newHead;
-34
-35        
+22
+23        return prev;
+24
+25        // // base case Recursive method Time : O(n), space: O(n) for stack call
+26        // if(head == null || head.next == null)
+27        //     return head;    
+28
+29        // ListNode newHead= reverseList(head.next);
+30
+31        // head.next.next = head;
+32        // head.next = null;
+33
+34        // return newHead;
+35
 36        // // Brute Force approach
 37        // List<Integer> ls = new ArrayList<>();
 38        // while (head != null) {
