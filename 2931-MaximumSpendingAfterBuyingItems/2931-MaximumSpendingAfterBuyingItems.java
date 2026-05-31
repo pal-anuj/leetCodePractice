@@ -1,27 +1,34 @@
-// Last updated: 11/04/2026, 08:16:37
+// Last updated: 01/06/2026, 00:12:42
 1class Solution {
-2    public int maxProfit(int[] prices) {
-3        int profit = 0;
-4        int n = prices.length;
-5        int min = prices[0];
-6        for (int i = 1; i < n; i++) {
-7            if (prices[i] > min)
-8                profit = Math.max(profit, prices[i] - min);
-9            else
-10                min = prices[i];
-11        }
-12        return profit;
-13    }
-14
-15    public int maxProfit1(int[] prices) {
-16        int profit = 0;
-17        int minPrice = prices[0];
-18        // for(int i=1;i<prices.length;i++){
-19        //     if(prices[i] > minPrice)
-20        //         profit= Math.max(profit, prices[i] - minPrice);
-21        //     else
-22        //         minPrice=prices[i];    
-23        // }
-24        return profit;
-25    }
-26}
+2    public int evalRPN(String[] tokens) {
+3        Stack<Integer> st = new Stack<>();
+4        int sum = 1;
+5        for (String token : tokens) {
+6            if ("+".equals(token) || "-".equals(token) || "*".equals(token)
+7                    || "/".equals(token)) {
+8
+9                int b = st.pop();
+10                int a = st.pop();
+11                String ops = token;
+12                switch (ops) {
+13                    case "+":
+14                        st.push(a + b);
+15                        break;
+16                    case "-":
+17                        st.push(a - b);
+18                        break;
+19                    case "*":
+20                        st.push(a * b);
+21                        break;
+22                    case "/":
+23                        st.push(a / b);
+24                        break;
+25                }
+26            } else {
+27                int num = Integer.parseInt(token);
+28                st.push(num);
+29            }
+30        }
+31        return st.pop();
+32    }
+33}
