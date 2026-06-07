@@ -1,4 +1,4 @@
-// Last updated: 07/06/2026, 10:42:03
+// Last updated: 07/06/2026, 10:42:12
 1class Solution {
 2    public List<Integer> majorityElement(int[] nums) {
 3        int n = nums.length;
@@ -8,11 +8,11 @@
 7        }
 8
 9        int maj = (int) Math.ceil((double) (n / 3));
-10        System.out.println(maj);
+10        // System.out.println(maj);
 11        List<Integer> res = new ArrayList<>();
 12        for (Map.Entry<Integer, Integer> entry : freqCount.entrySet()) {
 13            if (entry.getValue() > maj) {
-14                System.out.println("freq=>" + entry.getValue() + " , num= " + entry.getKey());
+14                // System.out.println("freq=>" + entry.getValue() + " , num= " + entry.getKey());
 15                res.add(entry.getKey());
 16            }
 17        }
