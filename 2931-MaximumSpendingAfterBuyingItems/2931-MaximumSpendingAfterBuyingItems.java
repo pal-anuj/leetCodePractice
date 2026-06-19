@@ -1,9 +1,9 @@
-// Last updated: 19/06/2026, 20:40:50
+// Last updated: 19/06/2026, 20:47:31
 1class Solution {
 2    public List<List<Integer>> threeSum(int[] nums) {
 3        int n = nums.length;
 4        List<List<Integer>> res = new ArrayList<>();
-5        Set<List<Integer>> set = new HashSet<>();
+5        HashSet<List<Integer>> set = new HashSet<>();
 6
 7        Arrays.sort(nums);
 8        for (int i = 0; i < n; i++) {
@@ -19,18 +19,16 @@
 18                } else if (sum < 0) {
 19                    l++;
 20                } else {
-21                    ArrayList<Integer> ls = 
-22                                new ArrayList<>(Arrays.asList(nums[i], nums[l], nums[r]));
-23
-24                    // Collections.sort(ls);
-25                    if (!set.contains(ls)) {
-26                        set.add(ls);
-27                        res.add(ls);
-28                    }
-29                    l++;
-30                }
-31            }
-32        }
-33        return res;
-34    }
-35}
+21                    List<Integer> ls = Arrays.asList(nums[i], nums[l], nums[r]);
+22                    Collections.sort(ls);
+23                    if (!set.contains(ls)) {
+24                        res.add(ls);
+25                        set.add(ls);
+26                    }
+27                    l++;
+28                }
+29            }
+30        }
+31        return res;
+32    }
+33}
