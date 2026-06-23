@@ -1,67 +1,59 @@
-// Last updated: 23/06/2026, 06:29:09
+// Last updated: 23/06/2026, 07:25:05
 1class Solution {
-2    public boolean isValidSudoku(char[][] board) {
-3        int n = 9;
-4        Map<Integer, Set<Character>> rows = new HashMap<>();
-5        Map<Integer, Set<Character>> cols = new HashMap<>();
-6        Map<String, Set<Character>> squares = new HashMap<>();
-7        for (int r = 0; r < n; r++) {
-8            for (int c = 0; c < n; c++) {
-9                if (board[r][c] == '.')
-10                    continue;
-11                String squareKey = r / 3 + "," + c / 3;
-12
-13                if (rows.computeIfAbsent(r, k -> new HashSet()).contains(board[r][c])
-14                        || cols.computeIfAbsent(c, k -> new HashSet()).contains(board[r][c])
-15                        || squares.computeIfAbsent(squareKey, k -> new HashSet()).contains(board[r][c]))
-16                    return false;
-17
-18                rows.get(r).add(board[r][c]);
-19                cols.get(c).add(board[r][c]);
-20                squares.get(squareKey).add(board[r][c]);
-21            }
-22        }
-23
-24        // // Brute Force
-25        // for(int i=0;i<n;i++){
-26        //     Set<Character> iSet= new HashSet<>();
-27        //     for(int j=0;j<n;j++){
-28        //         if(board[i][j]=='.')
-29        //             continue;
-30        //         else if(iSet.contains(board[i][j]) )
-31        //             return false;
-32        //         else
-33        //             iSet.add(board[i][j]);        
-34        //     }
-35        // }
-36
-37        // for(int i=0;i<n;i++){
-38        //     Set<Character> jSet= new HashSet<>();
-39        //     for(int j=0;j<n;j++){
-40        //         if(board[j][i]=='.')
-41        //             continue;
-42        //         else if(jSet.contains(board[j][i]) )
-43        //             return false;
-44        //         else
-45        //             jSet.add(board[j][i]);        
-46        //     }
-47        // }
-48
-49        // for(int square=0; square < 9;square++){
-50        //     Set <Character> boxSet= new HashSet<>();
-51        //     for(int i=0;i<3;i++){
-52        //         for(int j=0;j<3;j++){
-53        //             int row = (square / 3) * 3 + i;
-54        //             int col= (square % 3) * 3 + j;
-55        //             if(board[row][col]=='.') continue;
-56        //             else if(boxSet.contains(board[row][col]))
-57        //                 return false;
-58        //             else
-59        //                 boxSet.add(board[row][col]);    
-60        //         }
-61        //     }
-62        // }
-63
-64        return true;
-65    }
-66}
+2
+3    private boolean isSafe(char[][] board, int row, int col, char dig) {
+4        //horizontally
+5        for (int j = 0; j < 9; j++) {
+6            if (board[row][j] == dig)
+7                return false;
+8        }
+9
+10        //vertically
+11        for (int i = 0; i < 9; i++) {
+12            if (board[i][col] == dig)
+13                return false;
+14        }
+15
+16        // square 
+17        int srow = (row / 3) * 3;
+18        int scol = (col / 3) * 3;
+19        for (int i = srow; i <= srow + 2; i++) {
+20            for (int j = scol; j <= scol + 2; j++) {
+21                if (board[i][j] == dig)
+22                    return false;
+23            }
+24        }
+25        return true;
+26    }
+27
+28    private boolean helper(char[][] board, int row, int col) {
+29        if (row == 9)
+30            return true;
+31
+32        int nextRow = row;
+33        int nextCol = col + 1;
+34        if (nextCol == 9) {
+35            nextRow = row + 1;
+36            nextCol = 0;
+37        }
+38
+39        if (board[row][col] != '.')
+40            return helper(board, nextRow, nextCol);
+41
+42        // place the digit
+43        for (char dig = '1'; dig <= '9'; dig++) {
+44            if (isSafe(board, row, col, dig)) {
+45                board[row][col] = dig;
+46                if (helper(board, nextRow, nextCol)) {
+47                    return true;
+48                }
+49                board[row][col] = '.';
+50            }
+51        }
+52        return false;
+53    }
+54
+55    public void solveSudoku(char[][] board) {
+56        helper(board, 0, 0);
+57    }
+58}
