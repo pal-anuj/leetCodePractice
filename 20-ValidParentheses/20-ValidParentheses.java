@@ -1,39 +1,21 @@
-// Last updated: 21/12/2025, 17:28:27
-class Solution {
-    public boolean isValid(String s) {
-
-        Stack<Character> stack = new Stack();
-
-        // Map<Character,Character> map= new HashMap();
-        // map.put('(',')');
-        // map.put('[',']');
-        // map.put('{','}');
-        // // List<Character> startBraces = new ArrayList();
-        // // startBraces.add('(');
-        // // startBraces.add('[');
-        // // startBraces.add('{');
-        // // List<Character> endBraces = new ArrayList();
-        // //  endBraces.add(')');
-        // // endBraces.add(']');
-        // // endBraces.add('}');
-        for(char c: s.toCharArray()){
-            // if(map.containsKey(c)){
-            //     stack.push(map.get(c));
-            // } else {
-            // // System.out.println("stack"+stack);
-            // if (stack.isEmpty()) return false;
-            // if(stack.pop() != c) return false;
-            // }
-              if (c == '(') stack.push(')');
-            else if (c == '[') stack.push(']');
-            else if (c == '{') stack.push('}');
-            else {
-                if (stack.isEmpty() || stack.pop() != c) return false;
-            }
-
-        }
-        // System.out.println(stack);
-        return stack.isEmpty();
-        
-    }
-}
+// Last updated: 24/06/2026, 08:58:05
+1class Solution {
+2    public boolean isValid(String s) {
+3        Stack<Character> st = new Stack<>();
+4        for (char c : s.toCharArray()) {
+5            if (c == ')' || c == '}' || c == ']') {
+6                if (!st.isEmpty() && ( (st.peek() == '(' && c==')')
+7                    || (c==']' && st.peek()=='[') || (c=='}' && st.peek()=='{') )) {
+8                    st.pop();
+9                } 
+10                else
+11                    return false;
+12            } 
+13            else {
+14                st.push(c);
+15            }
+16
+17        }
+18        return st.isEmpty();
+19    }
+20}
