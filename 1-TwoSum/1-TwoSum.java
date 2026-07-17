@@ -1,19 +1,19 @@
-// Last updated: 17/07/2026, 20:33:49
+// Last updated: 17/07/2026, 20:38:16
 1class Solution {
-2    public boolean isAnagram(String s, String t) {
-3        int[] arr = new int[26];
-4        if(s.length()!= t.length())
-5            return false;
-6
-7        for (int i = 0; i < s.length(); i++) {
-8            arr[s.charAt(i) - 'a']++;
-9            arr[t.charAt(i) - 'a']--;
-10        }
-11
-12        for (int num : arr) {
-13            if (num != 0)
-14                return false;
-15        }
+2    public boolean canConstruct(String ransomNote, String magazine) {
+3
+4        int[] arr = new int[26];
+5        for (char c : magazine.toCharArray()) {
+6            arr[c - 'a']++;
+7        }
+8
+9        for (char c : ransomNote.toCharArray()) {
+10            if (arr[c - 'a'] > 0) {
+11                arr[c - 'a']--;
+12            } else
+13                return false;
+14        }
+15
 16        return true;
 17    }
 18}
