@@ -1,4 +1,4 @@
-// Last updated: 19/07/2026, 23:36:28
+// Last updated: 19/07/2026, 23:39:26
 1class Solution {
 2    public int[] topKFrequent(int[] nums, int k) {
 3
@@ -8,7 +8,7 @@
 7        }
 8
 9        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
-10        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+10        for (var entry : map.entrySet()) {
 11            int[] element = new int[] { entry.getKey(), entry.getValue() };
 12            pq.offer(element);
 13            if (pq.size() > k) {
