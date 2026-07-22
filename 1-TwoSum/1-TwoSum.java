@@ -1,4 +1,4 @@
-// Last updated: 21/07/2026, 23:57:15
+// Last updated: 22/07/2026, 23:31:20
 1class Solution {
 2    public int[] twoSum(int[] nums, int target) {
 3        HashMap<Integer, Integer> map = new HashMap<>();
