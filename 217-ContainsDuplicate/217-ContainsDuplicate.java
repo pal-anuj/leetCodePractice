@@ -1,30 +1,13 @@
-// Last updated: 19/08/2025, 17:50:29
-class Solution {
-    public boolean containsNearbyAlmostDuplicate(int[] arr, int indexDiff, int valueDiff) {
-        TreeSet<Long> window= new TreeSet<>();
-
-        for(int i=0;i<arr.length;i++){
-            long num = arr[i];
-
-            //check floor (closest smaller or equal
-            //largest element in the TreeSet which is <=x  
-            Long floor= window.floor(num);    
-            if(floor!=null && num-floor <= valueDiff)
-                return true;
-
-            //check ceiling (closest bigger or equal
-            //smallest element in the TreeSet which is >=x
-            Long ceiling= window.ceiling(num);
-            if(ceiling!=null && ceiling-num <= valueDiff)
-                return true;
-
-            //add current number to window
-            window.add(num);
-
-            //maintain window size
-            if(i >= indexDiff)
-                window.remove((long) arr[i-indexDiff]);
-        }
-        return false;    
-    }
-}
+// Last updated: 03/08/2026, 23:07:10
+1class Solution {
+2    public boolean containsDuplicate(int[] nums) {
+3        Set<Integer> set = new HashSet<>();
+4        for (int num : nums) {
+5            if (set.contains(num))
+6                return true;
+7
+8            set.add(num);
+9        }
+10        return false;
+11    }
+12}
