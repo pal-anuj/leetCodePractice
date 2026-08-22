@@ -1,4 +1,4 @@
-// Last updated: 14/08/2026, 21:31:18
+// Last updated: 22/08/2026, 20:30:08
 1class Solution {
 2    public int search(int[] nums, int target) {
 3        int n = nums.length;
