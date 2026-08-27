@@ -1,4 +1,4 @@
-// Last updated: 17/01/2026, 12:45:01
+// Last updated: 28/08/2026, 00:19:06
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -16,28 +16,23 @@
 15 */
 16class Solution {
 17    public List<Integer> rightSideView(TreeNode root) {
-18        if (root == null)
-19            return new ArrayList<>();
-20
-21        List<Integer> res = new ArrayList<>();
-22        Queue<TreeNode> q = new LinkedList<>();
-23        q.offer(root);
-24
-25        while (!q.isEmpty()) {
-26            int n = q.size();
-27
-28            for (int i = 0; i < n; i++) {
-29                TreeNode curr = q.poll();
-30                if (i == n - 1)
-31                    res.add(curr.val);
-32
-33                if (curr.left != null)
-34                    q.offer(curr.left);
-35                if (curr.right != null)
-36                    q.offer(curr.right);
-37            }
-38        }
-39        return res;
-40
-41    }
-42}
+18        List<Integer> res = new ArrayList<>();
+19        if (root == null) return res;
+20        Queue<TreeNode> q = new LinkedList<>();
+21        q.add(root);
+22        while (!q.isEmpty()) {
+23            int n = q.size();
+24            for (int i = 0; i < n; i++) {
+25                TreeNode curr = q.poll();
+26                if (i == n - 1) {
+27                    res.add(curr.val);
+28                }
+29
+30                if (curr.left != null) q.offer(curr.left);
+31                if (curr.right != null) q.offer(curr.right);
+32            }
+33        }
+34
+35        return res;
+36    }
+37}
