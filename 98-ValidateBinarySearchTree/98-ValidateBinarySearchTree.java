@@ -1,4 +1,4 @@
-// Last updated: 19/01/2026, 22:08:33
+// Last updated: 29/08/2026, 20:17:24
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -15,18 +15,16 @@
 14 * }
 15 */
 16class Solution {
-17    long prev = Long.MIN_VALUE;
-18
-19    public boolean isValidBST(TreeNode root) {
-20        if (root == null)
-21            return true;
-22
-23        if (isValidBST(root.left) == false)
-24            return false;
-25        if (root.val <= prev)
-26            return false;
-27
-28        prev = root.val;
-29        return isValidBST(root.right);
-30    }
-31}
+17    long prev= Long.MIN_VALUE;
+18    public boolean isValidBST(TreeNode root) {
+19        if(root==null) return true;
+20
+21        if(isValidBST(root.left)==false){
+22            return false;
+23        }
+24
+25        if(root.val <= prev) return false;
+26        prev= (long)root.val;
+27        return isValidBST(root.right);
+28    }
+29}
