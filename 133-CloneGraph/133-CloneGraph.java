@@ -1,4 +1,4 @@
-// Last updated: 30/01/2026, 20:00:11
+// Last updated: 31/08/2026, 22:31:18
 1/*
 2// Definition for a Node.
 3class Node {
@@ -6,7 +6,7 @@
 5    public List<Node> neighbors;
 6    public Node() {
 7        val = 0;
-8        y = new ArrayList<Node>();
+8        neighbors = new ArrayList<Node>();
 9    }
 10    public Node(int _val) {
 11        val = _val;
@@ -21,25 +21,24 @@
 20
 21class Solution {
 22
-23    public Node cloneGraph(Node node) {
-24        if (node == null)
-25            return null;
-26        Map<Node, Node> map = new HashMap<>();
-27        return cloneGraphUtil(node, map);
-28    }
-29
-30    private Node cloneGraphUtil(Node node, Map<Node, Node> map) {
-31        Node newNode = new Node(node.val);
-32        map.put(node, newNode);
-33
-34        for (Node nei : node.neighbors) {
-35            if (!map.containsKey(nei)) {
-36                newNode.neighbors.add(cloneGraphUtil(nei, map));
-37            } else {
-38                newNode.neighbors.add(map.get(nei));
-39            }
-40        }
-41
-42        return newNode;
-43    }
-44}
+23    private Node cloneUtil(Node node, HashMap<Node, Node> map) {
+24        Node newNode = new Node(node.val);
+25        map.put(node, newNode);
+26
+27        for (Node neighbor : node.neighbors) {
+28            if (map.containsKey(neighbor)) {
+29                newNode.neighbors.add(map.get(neighbor));
+30            } else {
+31                newNode.neighbors.add(cloneUtil(neighbor, map));
+32            }
+33        }
+34        return newNode;
+35    }
+36
+37    public Node cloneGraph(Node node) {
+38        if (node == null)
+39            return null;
+40        HashMap<Node, Node> map = new HashMap<>();
+41        return cloneUtil(node, map);
+42    }
+43}
