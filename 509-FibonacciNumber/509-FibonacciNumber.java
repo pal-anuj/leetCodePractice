@@ -1,32 +1,35 @@
-// Last updated: 14/09/2026, 18:14:07
-1class Solution {
-2    public void reverseString(char[] s) {
-3        int l = 0;
-4        int r = s.length - 1;
-5        reverse(s, l, r);
-6        // while (l < r) {
-7        //     swap(s, l, r);
-8        //     l++;
-9        //     r--;
-10        // }
-11    }
-12
-13    private void reverse(char[] s, int l, int r) {
-14        if (l >= r)
-15            return;
-16
-17        char temp = s[l];
-18        s[l] = s[r];
-19        s[r] = temp;
-20        l++;
-21        r--;
-22
-23        reverse(s, l, r);
-24    }
-25
-26    private void swap(char[] s, int l, int r) {
-27        char temp = s[l];
-28        s[l] = s[r];
-29        s[r] = temp;
-30    }
-31}
+// Last updated: 14/09/2026, 18:26:25
+1/**
+2 * Definition for singly-linked list.
+3 * public class ListNode {
+4 *     int val;
+5 *     ListNode next;
+6 *     ListNode() {}
+7 *     ListNode(int val) { this.val = val; }
+8 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+9 * }
+10 */
+11class Solution {
+12    public ListNode reverseList(ListNode head) {
+13        return reverse(head, null);
+14       
+15        // ListNode prev=null;
+16        // while(head!=null ){
+17        //     ListNode next= head.next;
+18        //     head.next= prev;
+19        //     prev= head;
+20        //     head=next;
+21        // }
+22        // return prev;
+23    }
+24
+25    private ListNode reverse(ListNode head, ListNode prev){
+26        if(head==null)
+27            return prev;
+28        ListNode next= head.next;
+29        head.next= prev;
+30        prev= head;
+31        head= next;
+32        return reverse(head, prev);
+33    }
+34}
