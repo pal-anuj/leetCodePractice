@@ -1,11 +1,18 @@
-// Last updated: 14/09/2026, 18:02:06
+// Last updated: 14/09/2026, 18:10:12
 1class Solution {
-2    public int fib(int n) {
-3        if (n == 0)
-4            return 0;
-5        if (n == 1)
-6            return 1;
-7
-8        return fib(n - 1) + fib(n - 2);
-9    }
-10}
+2    public void reverseString(char[] s) {
+3        int l = 0;
+4        int r = s.length - 1;
+5        while (l < r) {
+6            swap(s, l, r);
+7            l++;
+8            r--;
+9        }
+10    }
+11
+12    private void swap(char[] s, int l, int r) {
+13        char temp = s[l];
+14        s[l] = s[r];
+15        s[r] = temp;
+16    }
+17}
