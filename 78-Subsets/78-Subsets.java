@@ -1,31 +1,38 @@
-// Last updated: 17/09/2026, 06:15:12
+// Last updated: 17/09/2026, 06:41:21
 1class Solution {
-2
-3    Set<List<Integer>> set = new HashSet<>();
-4
-5    public List<List<Integer>> subsets(int[] nums) {
-6        List<List<Integer>> res = new ArrayList<>();
-7        List<Integer> ds = new ArrayList<>();
-8        return subsetsRec(0, nums.length, ds, res, nums);
-9    }
-10
-11    List<List<Integer>> subsetsRec(int idx, int n, List<Integer> ds, List<List<Integer>> res, int[] nums) {
-12        if (idx == n) {
-13            if (!set.contains(ds))
-14                res.add(new ArrayList<>(ds));
-15            return res;
-16        }
-17
-18        // Take
-19        ds.add(nums[idx]);
-20        subsetsRec(idx + 1, n, ds, res, nums);
-21
-22        // Undo
-23        ds.remove(ds.size() - 1);
-24
-25        // Not take
-26        subsetsRec(idx + 1, n, ds, res, nums);
-27
-28        return res;
-29    }
-30}
+2    Set<List<Integer>> set = new HashSet<>();
+3
+4    public List<List<Integer>> subsetsWithDup(int[] nums) {
+5        List<List<Integer>> res = new ArrayList<>();
+6        List<Integer> ds = new ArrayList<>();
+7
+8        subsetsWithDupRec(0, nums.length, res, ds, nums);
+9        return res;
+10    }
+11
+12    private void subsetsWithDupRec(int idx, int n, List<List<Integer>> res,
+13            List<Integer> ds, int[] nums) {
+14        // Base case
+15        if (idx == n) {
+16            List<Integer> sorted = new ArrayList<>(ds);
+17            Collections.sort(sorted);
+18            if (!set.contains(sorted)) {
+19                res.add(new ArrayList<>(ds));
+20                set.add(sorted);
+21            }
+22
+23            return;
+24        }
+25
+26        // Take
+27        ds.add(nums[idx]);
+28        subsetsWithDupRec(idx + 1, n, res, ds, nums);
+29
+30        // Undo
+31        ds.remove(ds.size() - 1);
+32
+33        // Not take
+34        subsetsWithDupRec(idx + 1, n, res, ds, nums);
+35    }
+36
+37}
