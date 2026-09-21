@@ -1,4 +1,4 @@
-// Last updated: 21/09/2026, 05:44:12
+// Last updated: 21/09/2026, 05:46:06
 1class Solution {
 2    public int fib(int n) {
 3        int[] dp = new int[n + 1];
@@ -13,7 +13,6 @@
 12        if (dp[n] != -1)
 13            return dp[n];
 14
-15        dp[n] = fib(n - 1) + fib(n - 2);
-16        return dp[n];
-17    }
-18}
+15        return dp[n] = fib(n - 1) + fib(n - 2);
+16    }
+17}
