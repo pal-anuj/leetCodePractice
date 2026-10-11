@@ -1,17 +1,18 @@
-// Last updated: 12/04/2026, 18:19:39
+// Last updated: 12/10/2026, 01:18:28
 1class Solution {
 2    public int maxSubArray(int[] nums) {
-3        int n = nums.length;
-4        int curr = nums[0];
-5        int maxSum = curr;
-6        for (int i = 1; i < n; i++) {
-7            curr += nums[i];
-8            curr = Math.max(curr, nums[i]);
-9            maxSum = Math.max(maxSum, curr);
-10        }
-11        return maxSum;
-12
-13
-14        
-15    }
-16}
+3
+4        int curSum = nums[0];
+5        int maxSum = curSum;
+6        for (int i = 1; i < nums.length; i++) {
+7            curSum += nums[i];
+8            if (curSum < nums[i]) {
+9                curSum = nums[i];
+10            }
+11            if (maxSum < curSum) {
+12                maxSum = curSum;
+13            }
+14        }
+15        return maxSum;
+16    }
+17}
