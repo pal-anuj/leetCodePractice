@@ -1,4 +1,4 @@
-// Last updated: 12/10/2026, 23:10:16
+// Last updated: 12/10/2026, 23:14:14
 1/**
 2 * Definition for singly-linked list.
 3 * public class ListNode {
@@ -11,33 +11,19 @@
 10 */
 11class Solution {
 12    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-13        ListNode l1 = list1;
-14        ListNode l2 = list2;
-15        ListNode newH = new ListNode(0);
-16        ListNode cur = newH;
-17        while (l1 != null && l2 != null) {
-18            if (l1.val > l2.val) {
-19                cur.next = l2;
-20                l2 = l2.next;
-21                cur = cur.next;
-22            } else if (l1.val < l2.val) {
-23                cur.next = l1;
-24                l1 = l1.next;
-25                cur = cur.next;
-26            } else {
-27                cur.next = l1;
-28                l1 = l1.next;
-29                cur=cur.next;
-30            }
-31        }
-32
-33        if (l1 != null) {
-34            cur.next = l1;
-35        }
-36
-37        if (l2 != null) {
-38            cur.next = l2;
-39        }
-40        return newH.next;
-41    }
-42}
+13        ListNode newH = new ListNode(0);
+14        ListNode cur = newH;
+15        while (list1 != null || list2 != null) {
+16            if(list2==null || (list1!=null && list1.val<= list2.val)){
+17                cur.next= new ListNode(list1.val);
+18                cur=cur.next;
+19                list1=list1.next;
+20            }else{
+21                cur.next= new ListNode(list2.val);
+22                cur= cur.next;
+23                list2= list2.next;
+24            }
+25        }
+26        return newH.next;
+27    }
+28}
