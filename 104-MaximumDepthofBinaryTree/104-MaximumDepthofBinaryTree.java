@@ -1,4 +1,4 @@
-// Last updated: 13/10/2026, 09:46:45
+// Last updated: 13/10/2026, 09:52:39
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -16,8 +16,20 @@
 15 */
 16class Solution {
 17    public int maxDepth(TreeNode root) {
-18        if(root==null)
-19            return 0;
-20        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));    
-21    }
-22}
+18        if(root==null) return 0;
+19        Queue<TreeNode> q= new LinkedList<>();
+20        q.add(root);
+21        int depth=0;
+22        while(!q.isEmpty()){
+23            depth++;
+24            int size= q.size();
+25            for(int i=0;i<size;i++){
+26                TreeNode cur= q.poll();
+27                if(cur.left!=null) q.offer(cur.left);
+28                if(cur.right!=null) q.offer(cur.right);
+29            }
+30        }
+31
+32        return depth;
+33    }
+34}
